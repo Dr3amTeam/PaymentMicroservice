@@ -13,13 +13,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
-    public Docket api(){
+    public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .tags(new Tag("Payments","Payments"))
+                .tags(new Tag("Payments", "Payments"))
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
     }
-
 }
