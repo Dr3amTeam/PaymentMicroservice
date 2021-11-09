@@ -18,38 +18,16 @@ public class PaymentViewProjection {
     public PaymentViewProjection(PaymentViewRepository paymentViewRepository) {
         this.paymentViewRepository = paymentViewRepository;
     }
-/*
-    @EventHandler
-    public void on(AccountCredited event) {
-        String paymentId = event.getPaymentId();
-        String accountId = event.getAccountId();
-        BigDecimal amount = event.getAmount();
-        String paymentType = PaymentType.DEPOSIT.toString();
-        PaymentView paymentView = new PaymentView(paymentId, accountId, null, amount, paymentType,
-                PaymentStatus.COMPLETED.toString(), event.getOcurredOn());
-        paymentViewRepository.save(paymentView);
-    }
 
-    @EventHandler
-    public void on(AccountDebited event) {
-        String paymentId = event.getPaymentId();
-        String accountId = event.getAccountId();
-        BigDecimal amount = event.getAmount();
-        String paymentType = PaymentType.WITHDRAW.toString();
-        PaymentView paymentView = new PaymentView(paymentId, accountId, null, amount, paymentType,
-                PaymentStatus.COMPLETED.toString(), event.getOccurredOn());
-        paymentViewRepository.save(paymentView);
-    }
-*/
     @EventHandler
     public void on(PaymentTransferCreated event) {
         String paymentId = event.getPaymentId();
-        String fromAccountId = event.getFromAccountId();
-        String toAccountId = event.getToAccountId();
+        String customerId = event.getCustomerId();
+        String employerId = event.getEmployerId();
         BigDecimal amount = event.getAmount();
         String paymentType = PaymentType.TRANSFER.toString();
         String paymentStatus = PaymentStatus.CREATED.toString();
-        PaymentView paymentView = new PaymentView(paymentId, fromAccountId, toAccountId, amount, paymentType,
+        PaymentView paymentView = new PaymentView(paymentId, customerId, employerId, amount, paymentType,
                 paymentStatus, event.getOccurredOn());
         paymentViewRepository.save(paymentView);
     }

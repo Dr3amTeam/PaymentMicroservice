@@ -10,7 +10,6 @@ import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.springframework.transaction.TransactionStatus;
 
 
 import java.math.BigDecimal;
@@ -23,11 +22,10 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 public class Payment {
     @AggregateIdentifier
     private String paymentId;
-    private String fromAccountId;
-    private String toAccountId;
-    private BigDecimal amount;/*
-    private String payMethodId;
-    private String appointmentId;*/
+    private String customerId;
+    private String employerId;
+    private BigDecimal amount;
+    private BigDecimal discount;
     private PaymentStatus status;
 
     protected Payment(){
@@ -37,11 +35,11 @@ public class Payment {
     public Payment(CreatePaymentTransfer command){
         apply(new PaymentTransferCreated(
             command.getPaymentId(),
-                command.getFromAccountId(),
-                command.getToAccountId(),
-                command.getAmount(),/*
-                command.getPayMethodId(),
-                command.getAppointmentId()*/Instant.now()
+                command.getCustomerId(),
+                command.getEmployerId(),
+                command.getAmount(),
+                command.getDiscount(),
+                Instant.now()
         ));
     }
     @CommandHandler
@@ -56,20 +54,20 @@ public class Payment {
     }
     /*
     @CommandHandler
-    public void returnPayment(CreditFromAccount command){
+    public void returnPayment(CreditFromCustomer command){
         Instant now = Instant.now();
-        apply(new FromAccountCredited(command.getFromAccountId(), command.getToAccountId(),command.getPaymentId(),
-        command.getAmount(),now));
+        apply(new FromCustomerCredited(command.getCustomerId(), command.getEmployerId(),command.getPaymentId(),
+        command.getAmount(),command.getDiscount(),now));
     }
      */
+
     @EventSourcingHandler
     protected void on(PaymentTransferCreated event){
         this.paymentId=event.getPaymentId();
-        this.fromAccountId=event.getFromAccountId();
-        this.toAccountId=event.getToAccountId();
-        this.amount = event.getAmount();/*
-        this.payMethodId=event.getPayMethodId();
-        this.appointmentId=event.getAppointmentId();*/
+        this.customerId=event.getCustomerId();
+        this.employerId=event.getEmployerId();
+        this.amount = event.getAmount();
+        this.discount=event.getDiscount();
         this.status= PaymentStatus.CREATED;
     }
     @EventSourcingHandler

@@ -35,7 +35,7 @@ public class PaymentQueryController {*/
     }
     @GetMapping(path = "/amount/{amount}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get Payment by Amount", response = PaymentView.class)
-    public ResponseEntity<PaymentView> getByAmount(@PathVariable("amoount") Float amount) {
+    public ResponseEntity<PaymentView> getByAmount(@PathVariable("amount") Float amount) {
         try {
             Optional<PaymentView> paymentViewOptional = paymentViewRepository.getByAmount(amount);
             if (paymentViewOptional.isPresent()) {

@@ -5,16 +5,16 @@ import java.math.BigDecimal;
 
 public class TransferPaymentRequestDto {
     @NotNull
-    private String fromAccountId;
-    private String toAccountId;
+    private String customerId;
+    private String employerId;
     private BigDecimal amount;
 
-    public String getFromAccountId() {
-        return fromAccountId;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public String getToAccountId() {
-        return toAccountId;
+    public String getEmployerId() {
+        return employerId;
     }
 
     public BigDecimal getAmount() {

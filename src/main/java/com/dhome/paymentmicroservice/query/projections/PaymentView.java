@@ -13,9 +13,9 @@ public class PaymentView {
     private String paymentId;
 
     @Column(length = 36)
-    private String fromAccountId;
+    private String customerId;
     @Column(length = 36,nullable = true)
-    private String toAccountId;
+    private String employerId;
 
     private BigDecimal amount;
 
@@ -30,10 +30,10 @@ public class PaymentView {
     public PaymentView() {
     }
 
-    public PaymentView(String paymentId, String fromAccountId, String toAccountId, BigDecimal amount, String paymentType, String paymentStatus, Instant createAt) {
+    public PaymentView(String paymentId, String customerId, String employerId, BigDecimal amount, String paymentType, String paymentStatus, Instant createAt) {
         this.paymentId = paymentId;
-        this.fromAccountId = fromAccountId;
-        this.toAccountId = toAccountId;
+        this.customerId = customerId;
+        this.employerId = employerId;
         this.amount = amount;
         this.paymentType = paymentType;
         this.paymentStatus = paymentStatus;
@@ -48,20 +48,20 @@ public class PaymentView {
         this.paymentId = paymentId;
     }
 
-    public String getFromAccountId() {
-        return fromAccountId;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setFromAccountId(String fromAccountId) {
-        this.fromAccountId = fromAccountId;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
-    public String getToAccountId() {
-        return toAccountId;
+    public String getEmployerId() {
+        return employerId;
     }
 
-    public void setToAccountId(String toAccountId) {
-        this.toAccountId = toAccountId;
+    public void setEmployerId(String employerId) {
+        this.employerId = employerId;
     }
 
     public BigDecimal getAmount() {
