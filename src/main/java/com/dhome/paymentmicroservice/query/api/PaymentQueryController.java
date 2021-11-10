@@ -1,4 +1,4 @@
-/*package com.dhome.paymentmicroservice.query.api;
+package com.dhome.paymentmicroservice.query.api;
 
 import com.dhome.paymentmicroservice.query.projections.PaymentView;
 import com.dhome.paymentmicroservice.query.projections.PaymentViewRepository;
@@ -18,8 +18,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/payments")
 @Api(tags = "Payments")
-public class PaymentQueryController {*/
-/*    private final PaymentViewRepository paymentViewRepository;
+public class PaymentQueryController {
+    private final PaymentViewRepository paymentViewRepository;
 
     public PaymentQueryController(PaymentViewRepository paymentViewRepository) {
         this.paymentViewRepository = paymentViewRepository;
@@ -33,7 +33,7 @@ public class PaymentQueryController {*/
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping(path = "/amount/{amount}", produces = MediaType.APPLICATION_JSON_VALUE)
+    /*@GetMapping(path = "/amount/{amount}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get Payment by Amount", response = PaymentView.class)
     public ResponseEntity<PaymentView> getByAmount(@PathVariable("amount") Float amount) {
         try {
@@ -45,7 +45,7 @@ public class PaymentQueryController {*/
         } catch( Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
     @GetMapping("/payment/{paymentId}")
     @ApiOperation(value="Get Payment id", response = List.class)
     public ResponseEntity<PaymentView> getPaymentById(@PathVariable("paymentId") String paymentId){
@@ -61,4 +61,4 @@ public class PaymentQueryController {*/
         }
     }
 
-}*/
+}
