@@ -1,12 +1,8 @@
 package com.dhome.paymentmicroservice.command.api;
 
-import com.dhome.common.api.ApiController;
-import com.dhome.common.application.Notification;
-import com.dhome.common.application.Result;
 import com.dhome.paymentmicroservice.command.application.dto.transfer.TransferPaymentErrorDto;
 import com.dhome.paymentmicroservice.command.application.dto.transfer.TransferPaymentOkResponseDto;
 import com.dhome.paymentmicroservice.command.application.dto.transfer.TransferPaymentRequestDto;
-import com.dhome.paymentmicroservice.command.domain.OverdraftLimitExceededException;
 import com.example.paymentcontracts.command.CreatePaymentTransfer;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.http.HttpStatus;

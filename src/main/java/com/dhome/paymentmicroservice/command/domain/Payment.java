@@ -38,7 +38,6 @@ public class Payment {
                 command.getCustomerId(),
                 command.getEmployerId(),
                 command.getAmount(),
-                command.getDiscount(),
                 Instant.now()
         ));
     }
@@ -67,7 +66,6 @@ public class Payment {
         this.customerId=event.getCustomerId();
         this.employerId=event.getEmployerId();
         this.amount = event.getAmount();
-        this.discount=event.getDiscount();
         this.status= PaymentStatus.CREATED;
     }
     @EventSourcingHandler
