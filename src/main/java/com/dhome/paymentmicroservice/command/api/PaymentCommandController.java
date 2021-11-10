@@ -26,6 +26,7 @@ public class PaymentCommandController {
     public PaymentCommandController(CommandGateway commandGateway) {
         this.commandGateway = commandGateway;
     }
+
     @PostMapping("/transfer")
     public ResponseEntity<Object> transfer(@Validated @RequestBody TransferPaymentRequestDto transferPaymentRequestDto) {
         String paymentId = UUID.randomUUID().toString();

@@ -28,17 +28,19 @@ public class Payment {
     private BigDecimal discount;
     private PaymentStatus status;
 
-    protected Payment(){
+    public Payment(){
 
     }
+
     @CommandHandler
     public Payment(CreatePaymentTransfer command){
+        Instant now = Instant.now();
         apply(new PaymentTransferCreated(
-            command.getPaymentId(),
+                command.getPaymentId(),
                 command.getCustomerId(),
                 command.getEmployerId(),
                 command.getAmount(),
-                Instant.now()
+                now
         ));
     }
     @CommandHandler
@@ -61,7 +63,7 @@ public class Payment {
      */
 
     @EventSourcingHandler
-    protected void on(PaymentTransferCreated event){
+    public void on(PaymentTransferCreated event){
         this.paymentId=event.getPaymentId();
         this.customerId=event.getCustomerId();
         this.employerId=event.getEmployerId();

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.dhome.paymentmicroservice.command.api"})
+//@ComponentScan({"com.dhome.paymentmicroservice.command.api"})
 public class PaymentMicroserviceApplication {
 
     public static void main(String[] args) {

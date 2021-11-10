@@ -1,9 +1,13 @@
 package com.dhome.paymentmicroservice.command.sagas;
 
+import com.dhome.registermicroservice.contracts.commands.AccountFromCustomer;
 import com.dhome.registermicroservice.contracts.commands.AccountToEmployee;
+import com.dhome.registermicroservice.contracts.events.FromAccountNotFound;
 import com.dhome.registermicroservice.contracts.events.FromCustomerAccount;
+import com.dhome.registermicroservice.contracts.events.ToAccountNotFound;
 import com.dhome.registermicroservice.contracts.events.ToEmployeeAccount;
 import com.example.paymentcontracts.command.MarkPaymentAsCompleted;
+import com.example.paymentcontracts.command.MarkPaymentAsFailed;
 import com.example.paymentcontracts.events.PaymentTransferCreated;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.modelling.saga.EndSaga;
@@ -29,24 +33,32 @@ public class PaymentSaga {
         this.customerId=event.getCustomerId();
         this.employerId=event.getEmployerId();
         this.amount=event.getAmount();
-        AccountToEmployee accountToEmployee = new AccountToEmployee(
+        AccountFromCustomer accountFromCustomer = new AccountFromCustomer(
                 event.getCustomerId(),
                 event.getPaymentId(),
                 event.getAmount());
-        commandGateway.send(accountToEmployee);
+        commandGateway.send(accountFromCustomer);
 
     }
 
+    @EndSaga
+    @SagaEventHandler(associationProperty = "paymentId")
+    public void on(FromAccountNotFound event) {
+        MarkPaymentAsFailed command = new MarkPaymentAsFailed(event.getPaymentId());
+        commandGateway.send(command);
+    }
+
+
     @SagaEventHandler(associationProperty = "paymentId")
     public void on(FromCustomerAccount event) {
-        AccountToEmployee command = new AccountToEmployee(customerId, employerId, event.getAmount());
+        AccountToEmployee command = new AccountToEmployee( employerId, event.getPaymentId(), event.getAmount());
         commandGateway.send(command);
     }
 
     @EndSaga
     @SagaEventHandler(associationProperty = "paymentId")
     public void on(ToEmployeeAccount event) {
-        MarkPaymentAsCompleted command = new MarkPaymentAsCompleted(event.getTransactionId());
+        MarkPaymentAsCompleted command = new MarkPaymentAsCompleted(event.getPaymentId());
         commandGateway.send(command);
     }
 
