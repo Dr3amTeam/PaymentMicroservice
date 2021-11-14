@@ -1,5 +1,6 @@
 package com.dhome.paymentmicroservice.command.domain;
 
 public enum PaymentType {
-    TRANSFER
+    CREDIT,
+    CASH
 }
