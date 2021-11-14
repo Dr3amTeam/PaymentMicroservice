@@ -60,5 +60,15 @@ public class PaymentQueryController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("paymentType/{paymentType}")
+    @ApiOperation(value = "Get payment type", response = List.class)
+    public ResponseEntity<List<PaymentView>> getAllByPaymentType(@PathVariable("paymentType")String paymentType) {
+        try {
+            List<PaymentView> paymentViews = paymentViewRepository.getPaymentViewsByPaymentType(paymentType);
+            return new ResponseEntity<List<PaymentView>>(paymentViews, HttpStatus.OK);
+        } catch( Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
