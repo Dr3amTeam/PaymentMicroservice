@@ -25,7 +25,10 @@ public class PaymentViewProjection {
         String customerId = event.getCustomerId();
         String employerId = event.getEmployerId();
         BigDecimal amount = event.getAmount();
-        String paymentType = PaymentType.TRANSFER.toString();
+        if(amount.doubleValue()>800){
+            String paymentType = PaymentType.CREDIT.toString();
+        }
+        String paymentType = PaymentType.CASH.toString();
         String paymentStatus = PaymentStatus.CREATED.toString();
         PaymentView paymentView = new PaymentView(paymentId, customerId, employerId, amount, paymentType,
                 paymentStatus, event.getOccurredOn());
