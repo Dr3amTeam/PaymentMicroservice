@@ -5,6 +5,7 @@ import com.example.paymentcontracts.events.PaymentTransferCompleted;
 import com.example.paymentcontracts.events.PaymentTransferCreated;
 import com.example.paymentcontracts.events.PaymentTransferFailed;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.Timestamp;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -25,11 +26,14 @@ public class PaymentViewProjection {
         String customerId = event.getCustomerId();
         String employerId = event.getEmployerId();
         BigDecimal amount = event.getAmount();
+        String paymentType;
         if(amount.doubleValue()>800){
-            String paymentType = PaymentType.CREDIT.toString();
+            paymentType = PaymentType.CREDIT.toString();
+        }else {
+            paymentType = PaymentType.CASH.toString();
         }
-        String paymentType = PaymentType.CASH.toString();
         String paymentStatus = PaymentStatus.CREATED.toString();
+
         PaymentView paymentView = new PaymentView(paymentId, customerId, employerId, amount, paymentType,
                 paymentStatus, event.getOccurredOn());
         paymentViewRepository.save(paymentView);

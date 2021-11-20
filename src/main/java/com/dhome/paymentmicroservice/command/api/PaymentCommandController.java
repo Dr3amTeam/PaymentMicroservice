@@ -3,7 +3,9 @@ package com.dhome.paymentmicroservice.command.api;
 import com.dhome.paymentmicroservice.command.application.dto.transfer.TransferPaymentErrorDto;
 import com.dhome.paymentmicroservice.command.application.dto.transfer.TransferPaymentOkResponseDto;
 import com.dhome.paymentmicroservice.command.application.dto.transfer.TransferPaymentRequestDto;
+import com.dhome.paymentmicroservice.config.SwaggerConfig;
 import com.example.paymentcontracts.command.CreatePaymentTransfer;
+import io.swagger.annotations.ApiOperation;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/payments")
-@Api(tags="Payments")
+@Api(tags={SwaggerConfig.PAYMENTS})
 public class PaymentCommandController {
     private final CommandGateway commandGateway;
 
@@ -28,6 +30,7 @@ public class PaymentCommandController {
     }
 
     @PostMapping("/transfer")
+    @ApiOperation(value = "Realizar transferencia")
     public ResponseEntity<Object> transfer(@Validated @RequestBody TransferPaymentRequestDto transferPaymentRequestDto) {
         String paymentId = UUID.randomUUID().toString();
         CreatePaymentTransfer command = new CreatePaymentTransfer(

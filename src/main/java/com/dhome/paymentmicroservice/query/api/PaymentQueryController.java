@@ -1,5 +1,6 @@
 package com.dhome.paymentmicroservice.query.api;
 
+import com.dhome.paymentmicroservice.config.SwaggerConfig;
 import com.dhome.paymentmicroservice.query.projections.PaymentView;
 import com.dhome.paymentmicroservice.query.projections.PaymentViewRepository;
 import io.swagger.annotations.Api;
@@ -17,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/payments")
-@Api(tags = "Payments")
+@Api(tags={SwaggerConfig.PAYMENTS})
 public class PaymentQueryController {
     private final PaymentViewRepository paymentViewRepository;
 
@@ -25,7 +26,7 @@ public class PaymentQueryController {
         this.paymentViewRepository = paymentViewRepository;
     }
     @GetMapping("")
-    @ApiOperation(value = "Get all payments", response = List.class)
+    @ApiOperation(value = "Obtener todos los pagos", response = List.class)
     public ResponseEntity<List<PaymentView>> getAll(){
         try{
             return new ResponseEntity<List<PaymentView>>(paymentViewRepository.findAll(), HttpStatus.OK);
@@ -47,7 +48,7 @@ public class PaymentQueryController {
         }
     }*/
     @GetMapping("/payment/{paymentId}")
-    @ApiOperation(value="Get Payment id", response = List.class)
+    @ApiOperation(value="Obtener un pago por Id", response = List.class)
     public ResponseEntity<PaymentView> getPaymentById(@PathVariable("paymentId") String paymentId){
         try{
             Optional<PaymentView> paymentViewOptional = paymentViewRepository.findById(paymentId);
@@ -61,7 +62,7 @@ public class PaymentQueryController {
         }
     }
     @GetMapping("paymentType/{paymentType}")
-    @ApiOperation(value = "Get payment type", response = List.class)
+    @ApiOperation(value = "Obtener pagos mediante el tipo de pago asignado", response = List.class)
     public ResponseEntity<List<PaymentView>> getAllByPaymentType(@PathVariable("paymentType")String paymentType) {
         try {
             List<PaymentView> paymentViews = paymentViewRepository.getPaymentViewsByPaymentType(paymentType);
