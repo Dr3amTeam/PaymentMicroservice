@@ -4,7 +4,6 @@ import com.dhome.registermicroservice.contracts.commands.AccountFromCustomer;
 import com.dhome.registermicroservice.contracts.commands.AccountToEmployee;
 import com.dhome.registermicroservice.contracts.events.FromAccountNotFound;
 import com.dhome.registermicroservice.contracts.events.FromCustomerAccount;
-import com.dhome.registermicroservice.contracts.events.ToAccountNotFound;
 import com.dhome.registermicroservice.contracts.events.ToEmployeeAccount;
 import com.example.paymentcontracts.command.MarkPaymentAsCompleted;
 import com.example.paymentcontracts.command.MarkPaymentAsFailed;
